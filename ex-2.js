@@ -1,3 +1,35 @@
 function findBookIndex(books, searchTitle) {
   // เริ่มเขียนโค้ดตรงนี้จ้า
+  let index = -1;
+  let left = 0;
+  let right = books.length - 1;
+  while (left <= right) {
+    let middle = Math.floor((left + right) / 2);
+    if (books[middle].title === searchTitle) {
+      index = left;
+      break;
+    } else if (books[middle].title < searchTitle) {
+      left = middle + 1;
+    } else {
+      right = middle - 1;
+    }
+  }
+  return index;
 }
+
+const books = [
+  { title: "A Tale of Two Cities", author: "Charles Dickens" },
+  { title: "Brave New World", author: "Aldous Huxley" },
+  { title: "Catch-22", author: "Joseph Heller" },
+  { title: "Don Quixote", author: "Miguel de Cervantes" },
+  { title: "Ender's Game", author: "Orson Scott Card" },
+  { title: "Fahrenheit 451", author: "Ray Bradbury" },
+  { title: "Gone with the Wind", author: "Margaret Mitchell" },
+  { title: "Harry Potter", author: "J.K. Rowling" },
+];
+
+const searchTitle = "A Tale of Two Cities";
+
+console.log(findBookIndex(books, searchTitle));
+
+// O(logn) เพราะว่า binary search เป็นการค้นหาที่ค่าตรงกลางเรื่อยๆจะลดจำนวนการค้นหาไปจำนวน loop ละครึ่งของจำนวน index
